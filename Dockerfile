@@ -2,16 +2,15 @@
 FROM ollama/ollama
 
 # 2. Umgebungsvariable setzen, damit der Server auf allen IPs lauscht
-# (Wichtig für Railway)
 ENV OLLAMA_HOST=0.0.0.0
 
-# 3. Das phi3:mini Modell "backen"
-# Dieser Befehl wird ausgeführt, WÄHREND Railway deinen Dienst baut.
-# Das Modell ist danach fest im Image gespeichert.
+# 3. Alle gewünschten Modelle "backen"
+#    Dieser Teil wird beim Build auf Railway ausgeführt.
 RUN ollama pull phi3:mini
+RUN ollama pull deepseek-coder:6.7b
+RUN ollama pull llama3:8b
 
 # 4. Den Standard-Port von Ollama freigeben
-# Railway erkennt diesen Port automatisch.
 EXPOSE 11434
 
 # HINWEIS: Du brauchst keinen CMD-Befehl. 
